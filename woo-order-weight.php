@@ -13,15 +13,15 @@
  * @package           Woocommerce_Order_Weight
  *
  * @wordpress-plugin
- * Plugin Name:       WooCommerce Order Weight
+ * Plugin Name:       Woo Order Weight
  * Plugin URI:        http://wun.se
  * Description:       This WordPress plugin stores the total weight of WooCommerce orders and displays the order weight when managing orders.
  * Version:           0.1.0
- * Author:            WUN
+ * Author:            weupnorth
  * Author URI:        http://wun.se
  * License:           GPL-2.0+
  * License URI:       http://www.gnu.org/licenses/gpl-2.0.txt
- * Text Domain:       woocommerce-order-weight
+ * Text Domain:       woo-order-weight
  * Domain Path:       /languages
  */
 
@@ -34,8 +34,8 @@ if ( ! defined( 'WPINC' ) ) {
  * The code that runs during plugin activation.
  * This action is documented in includes/class-woocommerce-order-weight-activator.php
  */
-function activate_woocommerce_order_weight() {
-	require_once plugin_dir_path( __FILE__ ) . 'includes/class-woocommerce-order-weight-activator.php';
+function activate_woo_order_weight() {
+	require_once plugin_dir_path( __FILE__ ) . 'includes/class-woo-order-weight-activator.php';
 	Woocommerce_Order_Weight_Activator::activate();
 }
 
@@ -43,19 +43,19 @@ function activate_woocommerce_order_weight() {
  * The code that runs during plugin deactivation.
  * This action is documented in includes/class-woocommerce-order-weight-deactivator.php
  */
-function deactivate_woocommerce_order_weight() {
-	require_once plugin_dir_path( __FILE__ ) . 'includes/class-woocommerce-order-weight-deactivator.php';
+function deactivate_wooorder_weight() {
+	require_once plugin_dir_path( __FILE__ ) . 'includes/class-woo-order-weight-deactivator.php';
 	Woocommerce_Order_Weight_Deactivator::deactivate();
 }
 
-register_activation_hook( __FILE__, 'activate_woocommerce_order_weight' );
-register_deactivation_hook( __FILE__, 'deactivate_woocommerce_order_weight' );
+register_activation_hook( __FILE__, 'activate_woo_order_weight' );
+register_deactivation_hook( __FILE__, 'deactivate_wooorder_weight' );
 
 /**
  * The core plugin class that is used to define internationalization,
  * admin-specific hooks, and public-facing site hooks.
  */
-require plugin_dir_path( __FILE__ ) . 'includes/class-woocommerce-order-weight.php';
+require plugin_dir_path( __FILE__ ) . 'includes/class-woo-order-weight.php';
 
 /**
  * Begins execution of the plugin.
@@ -66,10 +66,10 @@ require plugin_dir_path( __FILE__ ) . 'includes/class-woocommerce-order-weight.p
  *
  * @since    1.0.0
  */
-function run_woocommerce_order_weight() {
+function run_woo_order_weight() {
 
-	$plugin = new Woocommerce_Order_Weight();
+	$plugin = new Woo_Order_Weight();
 	$plugin->run();
 
 }
-run_woocommerce_order_weight();
+run_wooc_order_weight();

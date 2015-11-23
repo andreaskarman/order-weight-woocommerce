@@ -7,7 +7,7 @@
  * public-facing side of the site and the admin area.
  *
  * @link       http://wun.se
- * @since      1.0.0
+ * @since      0.1.0
  *
  * @package    Woo_Order_Weight
  * @subpackage Woo_Order_Weight/includes
@@ -22,10 +22,10 @@
  * Also maintains the unique identifier of this plugin as well as the current
  * version of the plugin.
  *
- * @since      1.0.0
+ * @since      0.1.0
  * @package    Woo_Order_Weight
  * @subpackage Woo_Order_Weight/includes
- * @author     WUN <andreas.karman@weupnorth.se>
+ * @author     andreaskarman <andreas.karman@weupnorth.se>
  */
 class Woo_Order_Weight {
 
@@ -33,7 +33,7 @@ class Woo_Order_Weight {
 	 * The loader that's responsible for maintaining and registering all hooks that power
 	 * the plugin.
 	 *
-	 * @since    1.0.0
+	 * @since    0.1.0
 	 * @access   protected
 	 * @var      Woocommerce_Order_Weight_Loader    $loader    Maintains and registers all hooks for the plugin.
 	 */
@@ -42,7 +42,7 @@ class Woo_Order_Weight {
 	/**
 	 * The unique identifier of this plugin.
 	 *
-	 * @since    1.0.0
+	 * @since    0.1.0
 	 * @access   protected
 	 * @var      string    $plugin_name    The string used to uniquely identify this plugin.
 	 */
@@ -51,7 +51,7 @@ class Woo_Order_Weight {
 	/**
 	 * The current version of the plugin.
 	 *
-	 * @since    1.0.0
+	 * @since    0.1.0
 	 * @access   protected
 	 * @var      string    $version    The current version of the plugin.
 	 */
@@ -64,12 +64,12 @@ class Woo_Order_Weight {
 	 * Load the dependencies, define the locale, and set the hooks for the admin area and
 	 * the public-facing side of the site.
 	 *
-	 * @since    1.0.0
+	 * @since    0.1.0
 	 */
 	public function __construct() {
 
 		$this->plugin_name = 'woo-order-weight';
-		$this->version = '1.0.0';
+		$this->version = '0.1.0';
 
 		//$this->check_requirements();
 		$this->load_dependencies();
@@ -91,7 +91,7 @@ class Woo_Order_Weight {
 	 * Create an instance of the loader which will be used to register the hooks
 	 * with WordPress.
 	 *
-	 * @since    1.0.0
+	 * @since    0.1.0
 	 * @access   private
 	 */
 	private function load_dependencies() {
@@ -122,7 +122,7 @@ class Woo_Order_Weight {
 	 * Uses the Woocommerce_Order_Weight_i18n class in order to set the domain and to register the hook
 	 * with WordPress.
 	 *
-	 * @since    1.0.0
+	 * @since    0.1.0
 	 * @access   private
 	 */
 	private function set_locale() {
@@ -138,7 +138,7 @@ class Woo_Order_Weight {
 	 * Register all of the hooks related to the admin area functionality
 	 * of the plugin.
 	 *
-	 * @since    1.0.0
+	 * @since    0.1.0
 	 * @access   private
 	 */
 	private function define_order_weight_hooks() {
@@ -157,7 +157,7 @@ class Woo_Order_Weight {
 	/**
 	 * Run the loader to execute all of the hooks with WordPress.
 	 *
-	 * @since    1.0.0
+	 * @since    0.1.0
 	 */
 	public function run() {
 		$this->loader->run();
@@ -167,7 +167,7 @@ class Woo_Order_Weight {
 	 * The name of the plugin used to uniquely identify it within the context of
 	 * WordPress and to define internationalization functionality.
 	 *
-	 * @since     1.0.0
+	 * @since     0.1.0
 	 * @return    string    The name of the plugin.
 	 */
 	public function get_plugin_name() {
@@ -177,7 +177,7 @@ class Woo_Order_Weight {
 	/**
 	 * The reference to the class that orchestrates the hooks with the plugin.
 	 *
-	 * @since     1.0.0
+	 * @since     0.1.0
 	 * @return    Woocommerce_Order_Weight_Loader    Orchestrates the hooks of the plugin.
 	 */
 	public function get_loader() {
@@ -187,7 +187,7 @@ class Woo_Order_Weight {
 	/**
 	 * Retrieve the version number of the plugin.
 	 *
-	 * @since     1.0.0
+	 * @since     0.1.0
 	 * @return    string    The version number of the plugin.
 	 */
 	public function get_version() {
