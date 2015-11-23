@@ -46,13 +46,10 @@ Bugs can be reported either in the support forum or preferably in the [plugin Gi
 
 ## Screenshots ##
 ###1. Order weight column when managing orders.###
-[missing image]
+![Order weight column when managing orders.](https://ps.w.org/woo-order-weight/assets/screenshot-1.png?rev=1292431)
 
 ###2. Order weight when managing a single order.###
-[missing image]
-
-###3. Order weight in the New order email.###
-[missing image]
+![Order weight when managing a single order.](https://ps.w.org/woo-order-weight/assets/screenshot-2.png?rev=1292431)
 
 
 ## Changelog ##
