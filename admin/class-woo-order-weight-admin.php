@@ -4,7 +4,7 @@
  * The admin-specific functionality of the plugin.
  *
  * @link       http://wun.se
- * @since      1.0.0
+ * @since      0.1.0
  *
  * @package    Woocommerce_Order_Weight
  * @subpackage Woocommerce_Order_Weight/admin
@@ -18,14 +18,14 @@
  *
  * @package    Woocommerce_Order_Weight
  * @subpackage Woocommerce_Order_Weight/admin
- * @author     WUN <andreas.karman@weupnorth.se>
+ * @author     andreaskarman <andreas.karman@weupnorth.se>
  */
-class Woocommerce_Order_Weight_Admin {
+class Woo_Order_Weight_Admin {
 
 	/**
 	 * The ID of this plugin.
 	 *
-	 * @since    1.0.0
+	 * @since    0.1.0
 	 * @access   private
 	 * @var      string    $plugin_name    The ID of this plugin.
 	 */
@@ -34,7 +34,7 @@ class Woocommerce_Order_Weight_Admin {
 	/**
 	 * The version of this plugin.
 	 *
-	 * @since    1.0.0
+	 * @since    0.1.0
 	 * @access   private
 	 * @var      string    $version    The current version of this plugin.
 	 */
@@ -45,7 +45,7 @@ class Woocommerce_Order_Weight_Admin {
 	/**
 	 * Initialize the class and set its properties.
 	 *
-	 * @since    1.0.0
+	 * @since    0.1.0
 	 * @param      string    $plugin_name       The name of this plugin.
 	 * @param      string    $version    The version of this plugin.
 	 */
@@ -58,7 +58,7 @@ class Woocommerce_Order_Weight_Admin {
 	}
 
 	/**
-	 * @since     1.0.0
+	 * @since     0.1.0
 	 * @return    string    The order weight meta-key
 	 */
 
@@ -67,7 +67,7 @@ class Woocommerce_Order_Weight_Admin {
 	}
 
 	/**
-	 * @since     1.0.0
+	 * @since     0.1.0
 	 * @return    string    The WooCommerce weight unit
 	 */
 
@@ -78,7 +78,7 @@ class Woocommerce_Order_Weight_Admin {
 	/**
 	 * When order is created, save the order weight using order metadata
 	 *
-	 * @since    1.0.0
+	 * @since    0.1.0
 	 */
 
 	public function woo_add_order_weight( $order_id, $posted ) {
@@ -90,7 +90,7 @@ class Woocommerce_Order_Weight_Admin {
 	/**
 	 * Add order weight column to order management
 	 *
-	 * @since    1.0.0
+	 * @since    0.1.0
 	 */
 
 	public function woo_add_column_weight($columns) {
@@ -106,7 +106,7 @@ class Woocommerce_Order_Weight_Admin {
 	/**
 	 * Populate order weight column with order weight metadata
 	 *
-	 * @since    1.0.0
+	 * @since    0.1.0
 	 */
 
 	public function woo_populate_weight_column( $column ) {
@@ -124,7 +124,7 @@ class Woocommerce_Order_Weight_Admin {
 	/**
 	 * Make the added order weight column sortable in order management
 	 *
-	 * @since    1.0.0
+	 * @since    0.1.0
 	 */
 
 	public function woo_make_weight_column_sortable( $columns ) {
@@ -137,7 +137,7 @@ class Woocommerce_Order_Weight_Admin {
 	/**
 	 * Make sure that order weight column sorts by correct metakey and metavalue
 	 *
-	 * @since    1.0.0
+	 * @since    0.1.0
 	 */
 
 	public function woo_sortable_by_weight_query( $vars ) {
@@ -153,7 +153,7 @@ class Woocommerce_Order_Weight_Admin {
  	/**
 	 * Add order weight to single order view
 	 *
-	 * @since    1.0.0
+	 * @since    0.1.0
 	 */
 
  	public function woo_add_weight_to_single_order( $order ) { ?>
@@ -171,7 +171,7 @@ class Woocommerce_Order_Weight_Admin {
  	 /**
 	 * Add order weight to New order emails
 	 *
-	 * @since    1.0.0
+	 * @since    0.1.0
 	 */
  
 	public function woo_add_weight_to_order_email( $keys ) {
