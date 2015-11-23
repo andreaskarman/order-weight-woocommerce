@@ -10,7 +10,7 @@
  *
  * @link              http://wun.se
  * @since             0.1.0
- * @package           Woocommerce_Order_Weight
+ * @package           Woo_Order_Weight
  *
  * @wordpress-plugin
  * Plugin Name:       Woo Order Weight
@@ -36,7 +36,7 @@ if ( ! defined( 'WPINC' ) ) {
  */
 function activate_woo_order_weight() {
 	require_once plugin_dir_path( __FILE__ ) . 'includes/class-woo-order-weight-activator.php';
-	Woocommerce_Order_Weight_Activator::activate();
+	Woo_Order_Weight_Activator::activate();
 }
 
 /**
@@ -45,7 +45,7 @@ function activate_woo_order_weight() {
  */
 function deactivate_wooorder_weight() {
 	require_once plugin_dir_path( __FILE__ ) . 'includes/class-woo-order-weight-deactivator.php';
-	Woocommerce_Order_Weight_Deactivator::deactivate();
+	Woo_Order_Weight_Deactivator::deactivate();
 }
 
 register_activation_hook( __FILE__, 'activate_woo_order_weight' );
