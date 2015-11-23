@@ -9,7 +9,7 @@
  * that starts the plugin.
  *
  * @link              http://wun.se
- * @since             1.0.0
+ * @since             0.1.0
  * @package           Woocommerce_Order_Weight
  *
  * @wordpress-plugin
@@ -49,7 +49,7 @@ function deactivate_wooorder_weight() {
 }
 
 register_activation_hook( __FILE__, 'activate_woo_order_weight' );
-register_deactivation_hook( __FILE__, 'deactivate_wooorder_weight' );
+register_deactivation_hook( __FILE__, 'deactivate_woo_order_weight' );
 
 /**
  * The core plugin class that is used to define internationalization,
@@ -64,7 +64,7 @@ require plugin_dir_path( __FILE__ ) . 'includes/class-woo-order-weight.php';
  * then kicking off the plugin from this point in the file does
  * not affect the page life cycle.
  *
- * @since    1.0.0
+ * @since    0.1.0
  */
 function run_woo_order_weight() {
 
@@ -72,4 +72,4 @@ function run_woo_order_weight() {
 	$plugin->run();
 
 }
-run_wooc_order_weight();
+run_woo_order_weight();
