@@ -42,7 +42,7 @@ There is no settings available for this plugin. Just activate it and it will do 
 
 = Where can I report bugs? =
 
-Bugs can be reported either in the support forum or preferably in the plugin GitHub repository.
+Bugs can be reported either in the support forum or preferably in the [plugin GitHub repository](https://github.com/weupnorth/WooCommerce-Order-Weight).
 
 == Screenshots ==
 1. Order weight column when managing orders.
