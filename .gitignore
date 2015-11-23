@@ -1,0 +1,12 @@
+.*
+!.gitignore
+!.editorconfig
+!readme.md
+ehthumbs.db
+Thumbs.db
+*.sublime-project
+*.sublime-workspace
+*.komodoproject
+*.log
+*.sql
+*.sqlite
