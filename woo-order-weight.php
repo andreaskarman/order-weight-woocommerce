@@ -17,7 +17,7 @@
  * Plugin URI:        http://wun.se
  * Description:       This WordPress plugin stores the total weight of WooCommerce orders and displays the order weight when managing orders.
  * Version:           0.1.0
- * Author:            weupnorth
+ * Author:            We Up North
  * Author URI:        http://wun.se
  * License:           GPL-2.0+
  * License URI:       http://www.gnu.org/licenses/gpl-2.0.txt
