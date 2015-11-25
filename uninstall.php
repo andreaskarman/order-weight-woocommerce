@@ -29,3 +29,7 @@
 if ( ! defined( 'WP_UNINSTALL_PLUGIN' ) ) {
 	exit;
 }
+
+// Remove plugin metadata
+$order_weight_meta_key = '_order_weight';
+delete_post_meta_by_key($order_weight_meta_key);
