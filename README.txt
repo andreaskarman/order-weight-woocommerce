@@ -5,6 +5,8 @@ Requires at least: 4.3.0
 Tested up to: 4.3.1
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
+WC requires at least: 2.4.0
+WC tested up to: 2.4.10
 
 This WordPress plugin stores the total weight of WooCommerce orders and displays the order weight when managing orders.
 
@@ -29,11 +31,11 @@ This plugin is developed and maintained by [Andreas Karman](http://andreaskarman
 
 = Automatic installation =
 
-To do an automatic install of Woo Order Weight, log in to your WordPress dashboard, navigate to the Plugins menu and click Add New. Type \"Woo Order Weight\" in the search field and click search Plugins. Click \"Install Now\" on this plugin which should be the first result.
+To do an automatic install of Woo Order Weight, log in to your WordPress dashboard, navigate to the Plugins menu and click Add New. Type "Woo Order Weight" in the search field and click search Plugins. Click "Install Now" on this plugin which should be the first result.
 
 = Manual installation =
 
-To manually install our plugin, you need to first download the plugin and then upload it to your webserver via FTP/SFTP. You can find more detailed instructions in the WordPress Codex.
+To manually install our plugin, you need to first download the plugin and then upload it to your webserver via FTP/SFTP. You can find more [detailed instructions in the WordPress Codex](https://codex.wordpress.org/Managing_Plugins#Manual_Plugin_Installation).
 
 == Frequently Asked Questions ==
 = Where is the plugin settings? =
@@ -47,8 +49,12 @@ Bugs can be reported either in the support forum or preferably in the [plugin Gi
 == Screenshots ==
 1. Order weight column when managing orders.
 2. Order weight when managing a single order.
-3. Order weight in the New order email.
 
 == Changelog ==
+= 0.1.0 - 2015/11/26 =
+* Removed metadata when un-installing plugin.
+* Added WooCommerce headers to readme.txt.
+* Check if WooCommerce is activated before activating plugin.
+
 = 0.1.0 - 2015/11/22 =
 * Initial plugin release.
