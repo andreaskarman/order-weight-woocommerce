@@ -51,7 +51,7 @@ Bugs can be reported either in the support forum or preferably in the [plugin Gi
 2. Order weight when managing a single order.
 
 == Changelog ==
-= 0.1.0 - 2015/11/26 =
+= 0.2.0 - 2015/11/26 =
 * Removed metadata when un-installing plugin.
 * Added WooCommerce headers to readme.txt.
 * Check if WooCommerce is activated before activating plugin.
