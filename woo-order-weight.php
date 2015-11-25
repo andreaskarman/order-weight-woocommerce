@@ -43,7 +43,7 @@ function activate_woo_order_weight() {
  * The code that runs during plugin deactivation.
  * This action is documented in includes/class-woocommerce-order-weight-deactivator.php
  */
-function deactivate_wooorder_weight() {
+function deactivate_woo_order_weight() {
 	require_once plugin_dir_path( __FILE__ ) . 'includes/class-woo-order-weight-deactivator.php';
 	Woo_Order_Weight_Deactivator::deactivate();
 }
