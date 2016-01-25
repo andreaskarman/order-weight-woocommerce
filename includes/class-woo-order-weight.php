@@ -151,7 +151,11 @@ class Woo_Order_Weight {
 		$this->loader->add_filter( 'manage_edit-shop_order_sortable_columns', $plugin_admin, 'woo_make_weight_column_sortable', 20);
 		$this->loader->add_filter( 'request', $plugin_admin, 'woo_sortable_by_weight_query');
 		$this->loader->add_action( 'woocommerce_admin_order_data_after_shipping_address', $plugin_admin, 'woo_add_weight_to_single_order', 10, 2);
-		$this->loader->add_filter( 'woocommerce_email_order_meta_keys', $plugin_admin, 'woo_add_weight_to_order_email');
+
+		$this->loader->add_filter( 'manage_edit-product_columns', $plugin_admin, 'woo_add_product_column_weight', 20);
+		$this->loader->add_action( 'manage_product_posts_custom_column', $plugin_admin, 'woo_populate_product_weight_column', 2);
+		$this->loader->add_filter( 'manage_edit-product_sortable_columns', $plugin_admin, 'woo_make_product_weight_column_sortable', 20);
+		$this->loader->add_filter( 'request', $plugin_admin, 'woo_sortable_by_product_weight_query');
 	}
 
 	/**

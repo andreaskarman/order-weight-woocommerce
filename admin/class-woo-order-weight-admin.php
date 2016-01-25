@@ -47,7 +47,7 @@ class Woo_Order_Weight_Admin {
 	 *
 	 * @since    0.1.0
 	 * @param      string    $plugin_name       The name of this plugin.
-	 * @param      string    $version    The version of this plugin.
+	 * @param      string    $version    		The version of this plugin.
 	 */
 	public function __construct( $plugin_name, $version ) {
 
@@ -141,7 +141,7 @@ class Woo_Order_Weight_Admin {
 	 */
 
 	public function woo_sortable_by_weight_query( $vars ) {
-    	if ( isset( $vars['orderby'] ) && 'price' == $vars['orderby'] ) {
+    	if ( isset( $vars['orderby'] ) && 'order_weight' == $vars['orderby'] ) {
         	$vars = array_merge( $vars, array(
             	'meta_key' => $this->woo_get_weight_meta_key(),
             	'orderby' => 'meta_value_num'
@@ -168,17 +168,72 @@ class Woo_Order_Weight_Admin {
  	<?php 
  	}
 
- 	 /**
-	 * Add order weight to New order emails
+	/**
+	 * Add product weight column to product management
 	 *
-	 * @since    0.1.0
+	 * @since    0.3.0
 	 */
- 
-	public function woo_add_weight_to_order_email( $keys ) {
 
-		$keys['Weight'] = $this->woo_get_weight_meta_key();
-		return $keys;
+	public function woo_add_product_column_weight($columns) {
 
+		$offset = 8;
+		$updated_columns = array_slice( $columns, 0, $offset, true) +
+		array( 'product_weight' => esc_html__( 'Weight', 'woocommerce' ) ) +
+		array_slice($columns, $offset, NULL, true);
+		return $updated_columns;
+
+	}
+
+	/**
+	 * Populate product weight column with product weight
+	 *
+	 * @since    0.3.0
+	 */
+
+	public function woo_populate_product_weight_column( $column ) {
+
+		global $post;
+		if ( $column == 'product_weight' ) {
+			global $product;
+			if ( $product->has_weight() ) {
+				echo $product->get_weight() . ' ' . $this->woo_get_woocommerce_weight_unit();
+			}
+			else print '<span aria-hidden="true">&#151;</span>';
+		}
+	}
+
+	/**
+	 * Make the added product weight column sortable in products view
+	 *
+	 * @since    0.3.0
+	 */
+
+	public function woo_make_product_weight_column_sortable( $columns ) {
+
+    	$columns['product_weight'] = 'product_weight';
+    	return $columns;
+
+	}
+
+	/**
+	 * Make sure that product weight column sorts by correct metakey and metavalue
+	 *
+	 * @since    0.3.0
+	 */
+
+	public function woo_sortable_by_product_weight_query( $vars ) {
+		if ( isset( $vars['post_type'] ) && 'product' == $vars['post_type'] ) {
+			if ( isset( $vars['orderby'] ) && 'product_weight' == $vars['orderby'] ) {
+				$vars = array_merge(
+					$vars,
+						array(
+							'meta_key' => '_weight',
+							'orderby' => 'meta_value_num'
+							)
+						);
+					}
+				}
+		return $vars;
 	}
 
 }

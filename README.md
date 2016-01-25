@@ -1,4 +1,4 @@
-# Woo Order Weight #
+# Order Weight for WooCommerce #
 **Contributors:** weupnorth
   
 **Tags:** woocommerce, woocommerce order, woocommerce order weight, woocommerce plugin, order, orders, weight, ecommerce, shop
@@ -11,10 +11,6 @@
   
 **License URI:** http://www.gnu.org/licenses/gpl-2.0.html
   
-**WC requires at least:** 2.4.0
-  
-**WC tested up to:** 2.4.10
-  
 
 This WordPress plugin stores the total weight of WooCommerce orders and displays the order weight when managing orders.
 
@@ -22,8 +18,6 @@ This WordPress plugin stores the total weight of WooCommerce orders and displays
 When a new order is created by a customer, the total weight of the order will be stored in the order metadata. For this to work as indented, your physical products needs a weight value.
 
 When managing orders, the weight of each order will be viewable. You can even sort the orders by weight using the added column.
-
-The weight is also added to the New order emails.
 
 ### Credits ###
 The concepts of the plugin came from [this blog post](http://www.remicorson.com/store-and-display-woocommerce-order-total-weight/) by Remi Corson.
@@ -39,7 +33,7 @@ This plugin is developed and maintained by [Andreas Karman](http://andreaskarman
 
 ### Automatic installation ###
 
-To do an automatic install of Woo Order Weight, log in to your WordPress dashboard, navigate to the Plugins menu and click Add New. Type "Woo Order Weight" in the search field and click search Plugins. Click "Install Now" on this plugin which should be the first result.
+To do an automatic install of Order Weight for WooCommerce, log in to your WordPress dashboard, navigate to the Plugins menu and click Add New. Type "Order Weight for WooCommerce" in the search field and click search Plugins. Click "Install Now" on this plugin which should be the first result.
 
 ### Manual installation ###
 
@@ -52,21 +46,15 @@ There is no settings available for this plugin. Just activate it and it will do 
 
 ### Where can I report bugs? ###
 
-Bugs can be reported either in the support forum or preferably in the [plugin GitHub repository](https://github.com/weupnorth/WooCommerce-Order-Weight).
-
-## Screenshots ##
-###1. Order weight column when managing orders.
-###
-![Order weight column when managing orders.
-](https://ps.w.org/woo-order-weight/assets/screenshot-1.png)
-
-###2. Order weight when managing a single order.
-###
-![Order weight when managing a single order.
-](https://ps.w.org/woo-order-weight/assets/screenshot-2.png)
+Bugs can be reported either in the support forum or preferably in the [plugin GitHub repository](https://github.com/weupnorth/Order-Weight-for-WooCommerce).
 
 
 ## Changelog ##
+
+### 0.3.0 - 2016/01/24 ###
+* Renamed plugin.
+* Added weight column to "Products".
+
 ### 0.2.0 - 2015/11/26 ###
 * Removed metadata when un-installing plugin.
 * Added WooCommerce headers to readme.txt.
