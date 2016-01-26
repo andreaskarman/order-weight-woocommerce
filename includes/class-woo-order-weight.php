@@ -74,7 +74,6 @@ class Woo_Order_Weight {
 		$this->load_dependencies();
 		$this->set_locale();
 		$this->define_order_weight_hooks();
-		$this->define_product_weight_hooks();
 
 	}
 
@@ -130,43 +129,24 @@ class Woo_Order_Weight {
 
 		$plugin_admin = new Woo_Order_Weight_Admin( $this->get_plugin_name(), $this->get_version() );
 
-		/**
-		* Save order weight
-		*/
-
 		$this->loader->add_action( 'woocommerce_checkout_update_order_meta', $plugin_admin, 'woo_add_order_weight', 10, 2);
 		
-		/** Add order weight to single order **/
 		$this->loader->add_action( 'woocommerce_admin_order_data_after_shipping_address', $plugin_admin, 'woo_add_weight_to_single_order', 10, 2);
 
-		// Add order weight column
 		$this->loader->add_filter( 'manage_edit-shop_order_columns', $plugin_admin, 'woo_add_column_weight', 20);
 		$this->loader->add_action( 'manage_shop_order_posts_custom_column', $plugin_admin, 'woo_populate_weight_column', 2);
 		$this->loader->add_filter( 'manage_edit-shop_order_sortable_columns', $plugin_admin, 'woo_make_weight_column_sortable', 20);
 		$this->loader->add_filter( 'request', $plugin_admin, 'woo_sortable_by_weight_query');
 
-		// Add product weight column
 		$this->loader->add_filter( 'manage_edit-product_columns', $plugin_admin, 'woo_add_product_column_weight', 20);
 		$this->loader->add_action( 'manage_product_posts_custom_column', $plugin_admin, 'woo_populate_product_weight_column', 2);
 		$this->loader->add_filter( 'manage_edit-product_sortable_columns', $plugin_admin, 'woo_make_product_weight_column_sortable', 20);
 		$this->loader->add_filter( 'request', $plugin_admin, 'woo_sortable_by_product_weight_query');
-	}
 
-	/**
-	 * Register all of the hooks related to Product Weight
-	 * of the plugin.
-	 *
-	 * @since    0.1.0
-	 * @access   private
-	 */
-	private function define_product_weight_hooks() {
-
-		$plugin_admin = new Woo_Order_Weight_Product( $this->get_plugin_name(), $this->get_version() );
-
-		$this->loader->add_filter( 'manage_edit-product_columns', $plugin_admin, 'woo_add_product_column_weight', 20);
-		$this->loader->add_action( 'manage_product_posts_custom_column', $plugin_admin, 'woo_populate_product_weight_column', 2);
-		$this->loader->add_filter( 'manage_edit-product_sortable_columns', $plugin_admin, 'woo_make_product_weight_column_sortable', 20);
-		$this->loader->add_filter( 'request', $plugin_admin, 'woo_sortable_by_product_weight_query');
+		$this->loader->add_filter( 'is_protected_meta', $plugin_admin, 'woo_protecting_meta_keys', 20, 4);
+		$this->loader->add_filter( 'woocommerce_api_order_response', $plugin_admin, 'woo_api_order_response', 20, 4);
+		$this->loader->add_filter( 'woocommerce_api_create_order', $plugin_admin, 'woo_api_create_order', 10, 4);
+		$this->loader->add_filter( 'woocommerce_api_edit_order', $plugin_admin, 'woo_api_edit_order_data', 10, 4);
 	}
 
 	/**
