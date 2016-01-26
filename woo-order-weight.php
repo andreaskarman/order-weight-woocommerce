@@ -15,8 +15,8 @@
  * @wordpress-plugin
  * Plugin Name:       Order Weight for WooCommerce
  * Plugin URI:        http://wun.se
- * Description:       This WordPress plugin stores the total weight of WooCommerce orders and displays the order weight when managing orders.
- * Version:           0.3.0
+ * Description:       This plugin extends WooCommerce by storing the weight of orders.
+ * Version:           0.3.5
  * Author:            We Up North
  * Author URI:        http://wun.se
  * License:           GPL-2.0+

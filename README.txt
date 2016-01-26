@@ -9,7 +9,7 @@ License URI: http://www.gnu.org/licenses/gpl-2.0.html
 This plugin extends WooCommerce by storing the weight of orders.
 
 == Description ==
-By using this plugin the weight of WooCommerce orders will be stored in the database and the order weight will be available in your WordPress Admin. It also extends orders in the WooCommerce REST API with weight and weight unit.
+By using this plugin the weight of WooCommerce orders will be stored in the database and the order weight will be available in your WordPress Admin when managing orders. It also extends orders in the WooCommerce REST API with weight and weight unit.
 
 To make the plugin work as intended, you need to [add weight to your products](https://docs.woothemes.com/document/adding-dimensions-and-weights-to-products-for-shipping/)
 
