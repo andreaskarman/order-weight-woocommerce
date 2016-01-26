@@ -23,13 +23,13 @@
 class Woo_Order_Weight_Activator {
 
 	/**
-	 * Short Description. (use period)
+	 * Checking if WooCommerce is activated
 	 *
-	 * Long Description.
 	 *
-	 * @since    0.2.0
+	 * @since    0.3.5
 	 */
-	public static function activate() {
+
+	public static function woocommerce_check() {
 		// Check if WooCommerce is activated
 			if ( !in_array( 'woocommerce/woocommerce.php', apply_filters( 'active_plugins', get_option( 'active_plugins' ) ) ) ) {
 				
@@ -39,8 +39,36 @@ class Woo_Order_Weight_Activator {
 				// Throw an error in the wordpress admin console
 				$error_message = __('This plugin requires <a href="http://wordpress.org/extend/plugins/woocommerce/">WooCommerce</a>.', 'woocommerce');
 				die($error_message);
-				
 			}
 	}
 
-}
+	/**
+	 * Clean-up order meta data from versions before 0.3.5
+	 *
+	 *
+	 * @since    0.3.5
+	 */
+
+	public static function meta_cleanup() {
+
+		$args = array(
+			'posts_per_page'   => '-1',
+			'meta_key'         => '_order_weight',
+			'post_type'       => 'shop_order',
+			'post_status' => array_keys( wc_get_order_statuses() )
+		);
+
+	    $posts = get_posts($args);
+
+	    foreach ($posts as $post ) {
+
+	        $current_weight = get_post_meta($post->ID, '_order_weight', true);
+	        update_post_meta($post->ID, 'order_weight', $current_weight);
+	        update_post_meta($post->ID, 'order_weight_unit', get_option('woocommerce_weight_unit'));
+	        delete_post_meta( $post->ID, '_order_weight' );
+
+	    }
+
+	   }
+
+	}
