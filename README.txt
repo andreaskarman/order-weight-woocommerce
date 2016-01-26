@@ -6,18 +6,24 @@ Tested up to: 4.4.1
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
-This WordPress plugin stores the total weight of WooCommerce orders and displays the order weight when managing orders.
+This plugin extends WooCommerce by storing the weight of orders.
 
 == Description ==
-When a new order is created by a customer, the total weight of the order will be stored in the order metadata. For this to work as indented, your physical products needs a weight value.
+By using this plugin the weight of WooCommerce orders will be stored in the database and the order weight will be available in your WordPress Admin. It also extends orders in the WooCommerce REST API with weight and weight unit.
 
-When managing orders, the weight of each order will be viewable. You can even sort the orders by weight using the added column.
+To make the plugin work as intended, you need to [add weight to your products](https://docs.woothemes.com/document/adding-dimensions-and-weights-to-products-for-shipping/)
+
+= What it does =
+- Saving the weight of orders when a new order is created.
+- Making order weight available in the WordPress Admin.
+- Adding sortable weight columns to "Products" and "Orders".
+- Extending orders in WooCommerce REST API with weight and weight unit.
 
 = Credits =
 The concepts of the plugin came from [this blog post](http://www.remicorson.com/store-and-display-woocommerce-order-total-weight/) by Remi Corson.
 
 = Author =
-This plugin is developed and maintained by [Andreas Karman](http://andreaskarman.se), [We Up North](http://wun.se).
+This plugin is developed and maintained by [Andreas Karman](http://andreaskarman.se), [We Up North](http://wun.se). Follow Andreas Karman on Twitter.
 
 == Installation ==
 = Plugin requirements =
@@ -47,7 +53,14 @@ Bugs can be reported either in the support forum or preferably in the [plugin Gi
 2. Order weight when managing a single order.
 
 == Changelog ==
-= 0.3.0 - 2016/01/224 =
+= 0.3.5 - 2016/01/26 =
+* Added weight and weight unit to orders in the WooCommerce REST API.
+* Changed meta key for order weight (removed underscore prefix).
+* Added activation function to rename old meta keys.
+* Protected plugin meta keys using is_protected_meta filter.
+* Updated the uninstall method with all meta keys.
+
+= 0.3.0 - 2016/01/24 =
 * Renamed plugin.
 * Added weight column to "Products".
 
