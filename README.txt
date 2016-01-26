@@ -23,7 +23,7 @@ To make the plugin work as intended, you need to [add weight to your products](h
 The concepts of the plugin came from [this blog post](http://www.remicorson.com/store-and-display-woocommerce-order-total-weight/) by Remi Corson.
 
 = Author =
-This plugin is developed and maintained by [Andreas Karman](http://andreaskarman.se), [We Up North](http://wun.se). Follow Andreas Karman on Twitter.
+This plugin is developed and maintained by [Andreas Karman](http://andreaskarman.se), [We Up North](http://wun.se).
 
 == Installation ==
 = Plugin requirements =
