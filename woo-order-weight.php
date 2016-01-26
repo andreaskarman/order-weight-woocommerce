@@ -36,7 +36,8 @@ if ( ! defined( 'WPINC' ) ) {
  */
 function activate_woo_order_weight() {
 	require_once plugin_dir_path( __FILE__ ) . 'includes/class-woo-order-weight-activator.php';
-	Woo_Order_Weight_Activator::activate();
+	Woo_Order_Weight_Activator::woocommerce_check();
+	Woo_Order_Weight_Activator::meta_cleanup();
 }
 
 /**
