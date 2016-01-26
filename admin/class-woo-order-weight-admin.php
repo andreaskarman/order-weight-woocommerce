@@ -74,6 +74,18 @@ class Woo_Order_Weight_Admin {
 	}
 
 	/**
+	 * Protecting meta-keys used by plugin
+	 *
+	 * @since    0.3.5
+	 */
+
+	public function woo_protecting_meta_keys( $protected, $meta_key ) {
+		if ( 'order_weight' == $meta_key ) return true;
+		if ( 'order_weight_unit' == $meta_key ) return true;
+			return $protected;
+	}
+
+	/**
 	 * When order is created, save the order weight using order metadata
 	 *
 	 * @since    0.1.0
@@ -234,4 +246,46 @@ class Woo_Order_Weight_Admin {
 		return $vars;
 	}
 
-}
+	/**
+	 * Adding weight and weight unit to WooCommerce Order API response
+	 *
+	 * @since    0.3.5
+	 */
+
+	public function woo_api_order_response( $order_data, $order ) {
+    	$order_data['weight'] = get_post_meta($order->id, 'order_weight', true);
+    	$order_data['weight_unit'] = $this->woo_get_woocommerce_weight_unit();
+    	return $order_data;
+  	}
+
+  	/**
+	 * Creating orders in WooCommerce Orders API with weight
+	 *
+	 * @since    0.3.5
+	 */
+
+  	public function woo_api_create_order($order_id, $data) {
+
+    	    $this->data = $data;
+    		$has_weight = isset( $data['weight'] ) ? $data['weight'] : 0 ;
+
+    		if($has_weight){
+    			$weight = wc_format_decimal($this->data['weight']);
+    			update_post_meta( $order_id, 'order_weight', $weight );
+    			update_post_meta( $order_id, 'order_weight_unit', $this->woo_get_woocommerce_weight_unit() );
+    		}
+
+    		return $this->data;
+  	}
+
+  	/**
+	 * Editing of orders in WooCommerce Orders API with weight
+	 *
+	 * @since    0.3.5
+	 */
+
+  	public function woo_api_edit_order_data($order_id, $data) {
+ 		 return $this->woo_api_create_order($order_id, $data);
+  	}
+
+  }
