@@ -51,7 +51,7 @@ class Woo_Order_Weight_Admin {
 
 		$this->plugin_name = $plugin_name;
 		$this->version = $version;
-		$this->meta_key = '_order_weight';
+		$this->meta_key = 'order_weight';
 
 	}
 
