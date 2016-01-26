@@ -69,7 +69,7 @@ class Woo_Order_Weight {
 	public function __construct() {
 
 		$this->plugin_name = 'woo-order-weight';
-		$this->version = '0.1.0';
+		$this->version = '0.3.5';
 
 		$this->load_dependencies();
 		$this->set_locale();
