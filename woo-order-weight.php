@@ -14,10 +14,10 @@
  *
  * @wordpress-plugin
  * Plugin Name:       Order Weight for WooCommerce
- * Plugin URI:        http://wun.se
+ * Plugin URI:        https://github.com/andreaskarman/order-weight-woocommerce
  * Description:       This plugin extends WooCommerce by storing the weight of orders.
- * Version:           0.3.5
- * Author:            We Up North
+ * Version:           0.4.0
+ * Author:            Andreas Karman
  * Author URI:        http://wun.se
  * License:           GPL-2.0+
  * License URI:       http://www.gnu.org/licenses/gpl-2.0.txt

@@ -1,8 +1,9 @@
 === Order Weight for WooCommerce ===
-Contributors: weupnorth, andreaskarman
+Contributors: andreaskarman
 Tags: woocommerce, woocommerce order, woocommerce order weight, woocommerce plugin, order, orders, weight, ecommerce, shop
-Requires at least: 4.3.0
-Tested up to: 4.4.1
+Requires at least: 5.0
+Tested up to: 5.8.1
+Stable tag: 0.4.0
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -23,13 +24,13 @@ To make the plugin work as intended, you need to [add weight to your products](h
 The concepts of the plugin came from [this blog post](http://www.remicorson.com/store-and-display-woocommerce-order-total-weight/) by Remi Corson.
 
 = Author =
-This plugin is developed and maintained by [Andreas Karman](http://andreaskarman.se), [We Up North](http://wun.se).
+This plugin is developed and maintained by [Andreas Karman](http://andreaskarman.se).
 
 == Installation ==
 = Plugin requirements =
 
-* WordPress 4.3.0 or greater
-* WooCommerce 2.4.0 or greater
+* WordPress 5.0 or greater
+* WooCommerce 5.0.0 or greater
 
 = Automatic installation =
 
@@ -46,13 +47,17 @@ There is no settings available for this plugin. Just activate it and it will do 
 
 = Where can I report bugs? =
 
-Bugs can be reported either in the support forum or preferably in the [plugin GitHub repository](https://github.com/weupnorth/Order-Weight-for-WooCommerce).
+Bugs can be reported either in the support forum or preferably in the [plugin GitHub repository](https://github.com/andreaskarman/order-weight-woocommerce).
 
 == Screenshots ==
 1. Order weight column when managing orders.
 2. Order weight when managing a single order.
 
 == Changelog ==
+= 0.4.0 - 2021/11/10 =
+* Fixed "Order properties should not be accessed directly" error
+* Fixed weight and weight unit in API calls not showing
+
 = 0.3.5 - 2016/01/26 =
 * Added weight and weight unit to orders in the WooCommerce REST API.
 * Changed meta key for order weight (removed underscore prefix).
