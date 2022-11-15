@@ -5,21 +5,30 @@
 
 **Requires at least:** 5.0
 
-**Tested up to:** 5.8.1
+**Tested up to:** 6.1
 
-**Stable tag:** 0.5.5
+**Stable tag:** 0.7
 
 **License:** GPLv2 or later
 
 **License URI:** http://www.gnu.org/licenses/gpl-2.0.html
 
-
-This WordPress plugin stores the total weight of WooCommerce orders and displays the order weight when managing orders.
+This WordPress plugin stores the weight of WooCommerce orders and displays the order weight when managing orders.
 
 ## Description ##
 When a new order is created by a customer, the total weight of the order will be stored in the order metadata. For this to work as indented, your physical products needs a weight value.
 
-When managing orders, the weight of each order will be viewable. You can even sort the orders by weight using the added column.
+To make the plugin work as intended, [add weight to your products](https://docs.woothemes.com/document/adding-dimensions-and-weights-to-products-for-shipping/).
+
+### What it does ###
+* When a new order is added, the total order weight is populated.
+* When an order is changed, the order weight is updated and a order notification is added.
+* Adding weight as a sortable column for ”Orders” and ”Products” in WordPress admin interface.
+* Extends the REST API with order weight and weight unit as order properties
+* Displays order weight in the customer dashboard
+* Bulk action to update order weight on historical orders
+* When exporting orders with [WooCommerce Customer / Order / Coupon Export](https://woocommerce.com/products/ordercustomer-csv-export/), order weight is included.
+
 
 ### Credits ###
 The concepts of the plugin came from [this blog post](http://www.remicorson.com/store-and-display-woocommerce-order-total-weight/) by Remi Corson.
@@ -46,12 +55,35 @@ To manually install our plugin, you need to first download the plugin and then u
 
 There is no settings available for this plugin. Just activate it and it will do what stated.
 
+### How can I get the weight for orders created prior to plugin activation? ###Jag
+
+In the WooCommerce Order interface, mark the orders and use the "Bulk action" -> "Update order weight". This will populate the order weight based on the content of the order and the current weight of the products.
+
 ### Where can I report bugs? ###
 
 Bugs can be reported either in the support forum or preferably in the [plugin GitHub repository](https://github.com/andreaskarman/order-weight-woocommerce).
 
 
 ## Changelog ##
+
+### 0.7 - 2022/11/14 ###
+* New feature: Bulk action to update order weights.
+
+### 0.6.4 - 2022/11/09 ###
+* Fixed PHP notices when API is called.
+* Fixed additional PHP8 compatibility issues.
+
+### 0.6.2 - 2022/10/19 ###
+* Fixed PHP8 compatibility issue.
+
+### 0.6.1 - 2022/10/03 ###
+* Added link to plugin settings in "Plugins".
+
+### 0.6 - 2022/09/13 ###
+* Added feature to display order weight in the customer dashboard.
+
+### = 0.5.5 - 2021/12/26 ###
+* New feature: Added order weight support for WooCommerce Customer / Order / Coupon Export
 
 ### 0.5 - 2021/12/17 ###
 * New feature: Compatibility added to the new WooCommerce Block Checkout
