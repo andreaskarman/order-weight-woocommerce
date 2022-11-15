@@ -69,11 +69,12 @@ class Woo_Order_Weight {
 	public function __construct() {
 
 		$this->plugin_name = 'woo-order-weight';
-		$this->version     = '0.4.0';
+		$this->version     = '0.6';
 
 		$this->load_dependencies();
 		$this->set_locale();
 		$this->define_order_weight_hooks();
+		$this->define_public_hooks();
 
 	}
 
@@ -99,6 +100,8 @@ class Woo_Order_Weight {
 
 		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'includes/class-woo-order-weight-i18n.php';
 		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'admin/class-woo-order-weight-admin.php';
+		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'admin/class-woo-order-weight-export.php';
+		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'public/class-woo-order-weight-public.php';
 		$this->loader = new Woo_Order_Weight_Loader();
 
 	}
@@ -130,6 +133,8 @@ class Woo_Order_Weight {
 		$plugin_admin = new Woo_Order_Weight_Admin( $this->get_plugin_name(), $this->get_version() );
 
 		$this->loader->add_action( 'woocommerce_checkout_update_order_meta', $plugin_admin, 'woo_add_order_weight', 10, 2 );
+		$this->loader->add_action( 'save_post_shop_order', $plugin_admin, 'woo_update_order_weight', 10, 2 );
+		$this->loader->add_action( 'woocommerce_update_order', $plugin_admin, 'woo_update_order_weight', 10, 2 );
 
 		$this->loader->add_action( 'woocommerce_admin_order_data_after_shipping_address', $plugin_admin, 'woo_add_weight_to_single_order', 10, 2 );
 
@@ -148,6 +153,41 @@ class Woo_Order_Weight {
 		$this->loader->add_filter( 'woocommerce_rest_prepare_shop_order_object', $plugin_admin, 'woo_api_order_response', 20, 4 );
 		$this->loader->add_filter( 'woocommerce_api_create_order', $plugin_admin, 'woo_api_create_order', 10, 4 );
 		$this->loader->add_filter( 'woocommerce_api_edit_order', $plugin_admin, 'woo_api_edit_order_data', 10, 4 );
+
+		$this->loader->add_filter( 'woocommerce_get_sections_advanced', $plugin_admin, 'woo_add_settings_section', 10, 4 );
+		$this->loader->add_filter( 'woocommerce_get_settings_advanced', $plugin_admin, 'woo_add_settings', 10, 4 );
+		$this->loader->add_filter( 'woocommerce_after_settings_advanced', $plugin_admin, 'woo_add_settings_test', 10, 4 );
+
+		$this->loader->add_filter( 'plugin_action_links_woo-order-weight/woo-order-weight.php', $plugin_admin, 'woo_plugin_settings_link', 10, 4 );
+
+		$this->loader->add_filter( 'bulk_actions-edit-shop_order', $plugin_admin, 'woo_add_custom_bulk_action', 10, 4 );
+		$this->loader->add_filter( 'handle_bulk_actions-edit-shop_order', $plugin_admin, 'woo_process_custom_bulk_action', 10, 4 );
+		$this->loader->add_filter( 'admin_notices', $plugin_admin, 'woo_display_custom_bulk_action_message', 10, 4 );
+
+		$plugin_export = new Woo_Order_Weight_Export( $this->get_plugin_name(), $this->get_version() );
+
+		$this->loader->add_filter( 'wc_customer_order_export_csv_order_headers', $plugin_export, 'wc_csv_export_add_weight_column_header', 10, 4 );
+		$this->loader->add_filter( 'wc_customer_order_export_csv_order_row', $plugin_export, 'wc_csv_export_add_weight_column_data', 10, 4 );
+		$this->loader->add_filter( 'wc_customer_order_export_xml_order_data', $plugin_export, 'wc_xml_order_export_weight', 10, 4 );
+
+	}
+
+	/**
+	 * Register all of the hooks related to the public-facing functionality
+	 * of the plugin.
+	 *
+	 * @since    1.0.0
+	 * @access   private
+	 */
+	private function define_public_hooks() {
+
+		$plugin_public = new Woo_Order_Weight_Public( $this->get_plugin_name(), $this->get_version() );
+
+		$check_public_setting = get_option( 'orderweight_customer_dashboard' );
+		if ($check_public_setting == 'yes') {
+			$this->loader->add_filter( 'woocommerce_my_account_my_orders_columns', $plugin_public, 'add_my_account_my_orders_weight_column' );
+			$this->loader->add_action( 'woocommerce_my_account_my_orders_column_order-weight', $plugin_public, 'add_my_account_my_orders_weight_column_content' );
+		}
 	}
 
 	/**

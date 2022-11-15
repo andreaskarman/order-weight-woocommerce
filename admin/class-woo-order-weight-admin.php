@@ -91,6 +91,40 @@ class Woo_Order_Weight_Admin {
 	}
 
 	/**
+	 * Save order weight when updating order in WordPress admin
+	 *
+	 * @since    0.4.5
+	 */
+
+	public function woo_update_order_weight($post_id){
+		global $post, $woocommerce, $the_order;
+		$the_order = new WC_Order( $post_id );
+		$weight = null;
+
+		foreach( $the_order->get_items() as $item ) {
+			if ( $item['product_id'] > 0 ) {
+				$_product = $item->get_product();
+				if ( ! $_product->is_virtual() ) {
+					$weight += (float)$_product->get_weight() * (float)$item['qty'];
+				}
+			}
+		}
+		$existing_weight = get_post_meta($post_id, $this->woo_get_weight_meta_key(), true);
+
+		if($weight != $existing_weight) {
+			$weight_unit = $this->woo_get_woocommerce_weight_unit();
+			$note = sprintf(
+				__( 'Order weight updated to %s %s.', 'woo-order-weight' ),
+				$weight,
+				$weight_unit
+			);
+			$the_order->add_order_note($note, false, false);
+			update_post_meta( $post_id, $this->woo_get_weight_meta_key(), $weight );
+		}
+
+	}
+
+	/**
 	 * When order is created, save the order weight using order metadata
 	 *
 	 * @since    0.1.0
@@ -209,7 +243,7 @@ class Woo_Order_Weight_Admin {
 			if ( $product->has_weight() ) {
 				echo esc_attr( $product->get_weight() . ' ' . $this->woo_get_woocommerce_weight_unit() );
 			} else {
-				print esc_html( '<span aria-hidden="true">&#151;</span>' );
+				print '<span aria-hidden="true">&#151;</span>';
 			}
 		}
 	}
@@ -237,7 +271,7 @@ class Woo_Order_Weight_Admin {
 				$vars = array_merge(
 					$vars,
 					array(
-						'meta_key' => 'order_weight',
+						'meta_key' => '_weight',
 						'orderby'  => 'meta_value_num',
 					)
 				);
@@ -253,7 +287,7 @@ class Woo_Order_Weight_Admin {
 	 */
 
 	public function woo_api_order_response( $response, $post ) {
-		$response->data['weight']      = get_post_meta( $post->id, 'order_weight', true );
+		$response->data['weight']      = get_post_meta( $post->get_id(), 'order_weight', true );
 		$response->data['weight_unit'] = $this->woo_get_woocommerce_weight_unit();
 		return $response;
 	}
@@ -286,6 +320,136 @@ class Woo_Order_Weight_Admin {
 
 	public function woo_api_edit_order_data( $order_id, $data ) {
 		return $this->woo_api_create_order( $order_id, $data );
+	 }
+
+		/**
+		 * Add settings section for plugin
+		 *
+		 * @since    0.6.0
+		 */
+
+ 	public function woo_add_settings_section( $sections ) {
+ 			$sections['orderweight'] = __( 'Order Weight for WooCommerce', 'woocommerce' );
+ 			return $sections;
+ 	}
+
+
+	/**
+	 * Add settings for plugin
+	 *
+	 * @since    0.6.0
+	 */
+
+	public function woo_add_settings( $settings, $current_section ) {
+
+		if ( $current_section == 'orderweight' ) {
+			$settings_slider = array();
+			$settings_slider[] = array( 'name' => __( 'Settings', 'woocommerce' ), 'type' => 'title', 'desc' => __( 'The following settings are used to configure Order Weight for WooCommerce.', 'woocommerce' ), 'id' => 'orderweight' );
+			$settings_slider[] = array(
+				'name'     => __( 'Order Weight in My Account', 'woocommerce' ),
+				//'desc_tip' => __( 'This will automatically display order weights in the customer dashboard.', 'text-domain' ),
+				'id'       => 'orderweight_customer_dashboard',
+				'type'     => 'checkbox',
+				'css'      => 'min-width:300px;',
+				'desc'     => __( 'Display the weight of each order in the customer dashboard.', 'woocommerce' ),
+			);
+
+			$settings_slider[] = array( 'type' => 'sectionend', 'id' => 'orderweight');
+
+			return $settings_slider;
+
+		} else {
+			return $settings;
+		}
 	}
 
+	/**
+	 * Add settings link in "Plugins" list
+	 *
+	 * @since    0.6.1
+	 */
+
+	public function woo_plugin_settings_link( $links ) {
+		$url = esc_url( add_query_arg(
+			'page',
+			'wc-settings&tab=advanced&section=orderweight',
+			get_admin_url() . 'admin.php'
+		) );
+		$settings_link = "<a href='$url'>" . __( 'Settings' ) . '</a>';
+		array_unshift(
+			$links,
+			$settings_link
+		);
+		return $links;
+	}
+
+	/**
+	 * Add custom bulk action to action dropdown
+	 *
+	 * @since    0.7
+	 */
+
+	 public function woo_add_custom_bulk_action( $bulk_array ) {
+
+	 	$bulk_array[ 'woo_update_order_weight' ] = 'Update order weight';
+	 	return $bulk_array;
+
+	 }
+
+	 /**
+ 	 * Processing the custom bulk action
+ 	 *
+ 	 * @since    0.7
+ 	 */
+
+ 	 public function woo_process_custom_bulk_action( $redirect, $doaction, $object_ids ) {
+
+			$redirect = remove_query_arg(
+				array( 'woo_update_order_weight' ),
+				$redirect
+			);
+
+			if ( 'woo_update_order_weight' === $doaction ) {
+
+				foreach ( $object_ids as $post_id ) {
+					$this->woo_update_order_weight($post_id);
+				}
+
+				$redirect = add_query_arg(
+					'woo_update_order_weight',
+					count( $object_ids ),
+					$redirect
+				);
+
+			}
+
+			return $redirect;
+
+ 	 }
+
+	 /**
+		 * Add custom bulk action confirmation message
+		 *
+		 * @since    0.7
+		 */
+
+		 public function woo_display_custom_bulk_action_message() {
+
+ 			if( ! empty( $_REQUEST[ 'woo_update_order_weight' ] ) ) {
+
+ 				$count = (int) $_REQUEST[ 'woo_update_order_weight' ];
+ 				$message = sprintf(
+ 					_n(
+ 						'The weight of %d order has been updated.',
+ 						'The weight of %d orders has been updated.',
+ 						$count
+ 					),
+ 					$count
+ 				);
+
+ 				echo "<div class=\"updated notice is-dismissible\"><p>{$message}</p></div>";
+
+		 }
+
+}
 }

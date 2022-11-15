@@ -7,7 +7,7 @@
 
 **Tested up to:** 5.8.1
 
-**Stable tag:** 0.4.0
+**Stable tag:** 0.5.5
 
 **License:** GPLv2 or later
 
@@ -53,9 +53,19 @@ Bugs can be reported either in the support forum or preferably in the [plugin Gi
 
 ## Changelog ##
 
+### 0.5 - 2021/12/17 ###
+* New feature: Compatibility added to the new WooCommerce Block Checkout
+* Bug fix: Fixed sorting error of "Products" by weight
+
+### 0.4.5 - 2021/11/20 ###
+* New feature: Updating order weight in the WordPress admin when an order is updated.
+* New feature: When order weight is updated, a order notifications is added.
+* Bug fix: Display error in "Products" weight column
+
 ### 0.4.0 - 2021/11/10 ###
 * Fixed "Order properties should not be accessed directly" error
 * Fixed weight and weight unit in API calls not showing
+
 ### 0.3.5 - 2016/01/26 ###
 * Added weight and weight unit to orders in the WooCommerce REST API.
 * Changed meta key for order weight (removed underscore prefix).

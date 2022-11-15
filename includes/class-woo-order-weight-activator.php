@@ -63,7 +63,7 @@ class Woo_Order_Weight_Activator {
 			$current_weight = get_post_meta( $post->ID, '_order_weight', true );
 			update_post_meta( $post->ID, 'order_weight', $current_weight );
 			update_post_meta( $post->ID, 'order_weight_unit', get_option( 'woocommerce_weight_unit' ) );
-			delete_post_meta( $post->ID, '_order_weight' );
+			#elete_post_meta( $post->ID, '_order_weight' );
 		}
 	}
 
