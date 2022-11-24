@@ -5,9 +5,9 @@
 
 **Requires at least:** 5.0
 
-**Tested up to:** 6.1
+**Tested up to:** 6.1.1
 
-**Stable tag:** 0.7
+**Stable tag:** 0.8
 
 **License:** GPLv2 or later
 
@@ -65,6 +65,9 @@ Bugs can be reported either in the support forum or preferably in the [plugin Gi
 
 
 ## Changelog ##
+
+### 0.8 - 2022/11/24 ###
+* New feature: Admin tool to update the weight on all orders.
 
 ### 0.7 - 2022/11/14 ###
 * New feature: Bulk action to update order weights.

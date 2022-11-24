@@ -2,8 +2,8 @@
 Contributors: andreaskarman
 Tags: woocommerce, woocommerce order, woocommerce order weight, woocommerce plugin, order, orders, weight, ecommerce, shop
 Requires at least: 5.0
-Tested up to: 6.1
-Stable tag: 0.7
+Tested up to: 6.1.1
+Stable tag: 0.8
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -20,7 +20,7 @@ To make the plugin work as intended, [add weight to your products](https://docs.
 - Adding weight as a sortable column for ”Orders” and ”Products” in WordPress admin interface.
 - Extends the REST API with order weight and weight unit as order properties
 - Displays order weight in the customer dashboard
-- Bulk action to update order weight on historical orders
+- Tool to update the weight on all orders
 - When exporting orders with [WooCommerce Customer / Order / Coupon Export](https://woocommerce.com/products/ordercustomer-csv-export/), order weight is included.
 
 = Credits =
@@ -61,12 +61,15 @@ Bugs can be reported either in the support forum or preferably in the [plugin Gi
 2. Order weight when managing a single order.
 3. Order weight in the customer dashboard.
 4. Bulk action to update order weight.
-5. Order REST API response with weight and weight unit.
+5. Plugin settings
 
 == Changelog ==
 
+= 0.8 - 2022/11/24 =
+* New feature: Admin tool to update the weight on all orders.
+
 = 0.7 - 2022/11/14 =
-* New feature: Bulk action to update order weights.
+* New feature: Custom bulk action to update order weights.
 
 = 0.6.4 - 2022/11/09 =
 * Fixed PHP notices when API is called.

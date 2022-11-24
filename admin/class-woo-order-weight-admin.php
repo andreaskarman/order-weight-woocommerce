@@ -344,14 +344,13 @@ class Woo_Order_Weight_Admin {
 
 		if ( $current_section == 'orderweight' ) {
 			$settings_slider = array();
-			$settings_slider[] = array( 'name' => __( 'Settings', 'woocommerce' ), 'type' => 'title', 'desc' => __( 'The following settings are used to configure Order Weight for WooCommerce.', 'woocommerce' ), 'id' => 'orderweight' );
+			$settings_slider[] = array( 'name' => __( 'Settings', 'woocommerce' ), 'type' => 'title', 'desc' => __( 'The following settings are used to configure Order Weight for WooCommerce.', 'woo-order-weight' ), 'id' => 'orderweight' );
 			$settings_slider[] = array(
-				'name'     => __( 'Order Weight in My Account', 'woocommerce' ),
-				//'desc_tip' => __( 'This will automatically display order weights in the customer dashboard.', 'text-domain' ),
+				'name'     => __( 'Order Weight in My Account', 'woo-order-weight' ),
 				'id'       => 'orderweight_customer_dashboard',
 				'type'     => 'checkbox',
 				'css'      => 'min-width:300px;',
-				'desc'     => __( 'Display the weight of each order in the customer dashboard.', 'woocommerce' ),
+				'desc'     => __( 'Display the weight of each order in the customer dashboard.', 'woo-order-weight' ),
 			);
 
 			$settings_slider[] = array( 'type' => 'sectionend', 'id' => 'orderweight');
@@ -416,8 +415,8 @@ class Woo_Order_Weight_Admin {
 				}
 
 				$redirect = add_query_arg(
-					'woo_update_order_weight',
-					count( $object_ids ),
+					'woo_update_order_weight', // just a parameter for URL
+					count( $object_ids ), // how many posts have been selected
 					$redirect
 				);
 
@@ -427,7 +426,7 @@ class Woo_Order_Weight_Admin {
 
  	 }
 
-	 /**
+	 	/**
 		 * Add custom bulk action confirmation message
 		 *
 		 * @since    0.7
@@ -449,7 +448,152 @@ class Woo_Order_Weight_Admin {
 
  				echo "<div class=\"updated notice is-dismissible\"><p>{$message}</p></div>";
 
+		 	}
+	 }
+
+	 /**
+		* Adding settings for bulk tool
+		*
+		* @since    0.8
+		*/
+
+		public function woo_add_tool_settings(  ) {
+
+			if( strpos( $_SERVER["REQUEST_URI"], "orderweight" ) !== false ){
+				$order_count = $this->woo_get_total_order_count();
+				$nonce = wp_create_nonce( 'orderweight-nonce' );
+
+				echo '<hr></hr>';
+				echo '<h2>'. esc_html__( 'Update all order weights', 'woo-order-weight' ) .'</h2>';
+				echo '<p>'. esc_html__( 'Use this to calculate and set the weight of all orders in your WooCommerce installation, including those created before activating the plugin. The order weight will be based on the current product weights.', 'woo-order-weight' ) .'</p>';
+				echo '<p class="status"><strong><span class="orderweight-processed-orders">0</span> '. esc_html__( 'of', 'woo-order-weight' ) .' <span class="orderweight-total-orders">'.$order_count.'</span> orders updated</strong></p>';
+				echo '<div class="orderweight-progress-wrapper"><div class="orderweight-progress-bar progress-bar-striped progress-bar-animated"></div></div>';
+				echo '<button id="woo_update_orders" name="woo_update_orders" class="button-primary woocommerce-save-button orderweight-submit-button" data-nonce="' . esc_attr( $nonce ) . '" type="submit" value="'. esc_html__( 'Update all orders', 'woo-order-weight' ) .'">'. esc_html__( 'Update all orders', 'woo-order-weight' ) .'</button>';
+			}
+
+	}
+
+	/**
+	 * Get total order count for all statuses
+	 *
+	 * @since    0.8
+	 */
+
+		public function woo_get_total_order_count(){
+			$statuses    = array_keys( wc_get_order_statuses() );
+			$order_count = 0;
+
+			foreach ( $statuses as $status ) {
+
+				if ( 0 !== strpos( $status, 'wc-' ) ) {
+					$status = 'wc-' . $status;
+				}
+
+				$order_count += wp_count_posts( 'shop_order' )->$status;
+			}
+			return number_format($order_count);
+		}
+
+	 /**
+		* Adding plugin CSS and JavaScript
+		*
+		* @since    0.8
+		*/
+
+	 public function woo_add_admin_assets($hook) {
+  		wp_enqueue_script('order-weight-js', plugin_dir_url(__FILE__) . '../javascript/orderweight-admin.js');
+			wp_enqueue_style('order-weight-css', plugin_dir_url(__FILE__) . '../css/orderweight-admin.css');
+		}
+
+	 	/**
+		 * Processing AJAX bulk action for all orders
+		 *
+		 * @since    0.8
+		 */
+
+		 public function woo_process_bulk_orders() {
+
+			 if( ! wp_verify_nonce( $_POST['nonce'], 'orderweight-nonce' ) ) {
+				 die();
+			 }
+
+			 $offset = absint( $_POST['offset'] );
+			 $increment = 25;
+ 			 $order_data = array();
+
+ 			if( $offset == 0 ) {
+	 			delete_transient( 'order_weight_update_process' );
+	 			$order_data['order_ids'] = $this->woo_get_all_orders_id();
+	 			$order_data['total_orders'] = count( $order_data['order_ids'] );
+ 			}
+			else {
+	 			$order_data['order_ids'] = $this->woo_get_all_orders_id();
+	 			$order_data['total_orders'] = count( $order_data['order_ids'] );
+ 			}
+
+ 			if( $offset > $order_data['total_orders'] ) {
+	 			$offset = 'done';
+			}
+			else
+			{
+
+			 $args = array(
+				 'post_type'         => 'shop_order',
+		 	 	 'post_status'       =>  array_keys( wc_get_order_statuses() ),
+				 'posts_per_page' 	 => $increment,
+				 'offset' 					 => $offset,
+				 'fields' 					 => 'ids',
+				 'no_found_rows' 		 => true,
+				 'post__in' 				 => $order_data['order_ids']
+			 );
+	 	 	$orders = get_posts ( $args );
+	 		foreach( $orders as $order_id ) {
+				 $this->woo_update_order_weight($order_id);
+				 $clicks = get_transient( 'order_weight_update_process' );
+				 $clicks++;
+				 set_transient( 'order_weight_update_process', $clicks, DAY_IN_SECONDS );
+	 	 	}
+	 		$offset += $increment;
+ 		}
+ 		echo json_encode( array( 'offset' => $offset, 'count' => get_transient( 'order_weight_update_process' )) );
+ 		exit;
+
+	}
+
+	/**
+	* Get all order ID's
+	*
+	* @since    0.8
+	*/
+
+
+	public function woo_get_all_orders_id(  ) {
+		$args = array(
+    	'return' => 'ids',
+			'limit' => -1,
+		);
+		$orders = wc_get_orders( $args );
+		return $orders;
+	}
+
+	/**
+	 * Add plugin help informatino
+	 *
+	 * @since    0.8
+	 */
+
+	 public function woo_add_plugin_help(  ) {
+
+		 if( strpos( $_SERVER["REQUEST_URI"], "orderweight" ) !== false ){
+			 $text = sprintf(
+			     esc_html__( 'Do you need help or do you have suggestions for improvement? Please use the %s', 'woo-order-weight' ),
+			     '<a href="https://wordpress.org/support/plugin/woo-order-weight/" target="_blank"><strong>' . esc_html__( 'plugin support forum', 'woo-order-weight' ) . '</strong></a>.'
+			 );
+
+			 echo '<hr class="woo-support"></hr>';
+			 echo '<p><i>'. $text .'</i></p>';
 		 }
 
-}
+ }
+
 }

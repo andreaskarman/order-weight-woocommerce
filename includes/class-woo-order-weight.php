@@ -69,7 +69,7 @@ class Woo_Order_Weight {
 	public function __construct() {
 
 		$this->plugin_name = 'woo-order-weight';
-		$this->version     = '0.6';
+		$this->version     = '0.8';
 
 		$this->load_dependencies();
 		$this->set_locale();
@@ -156,13 +156,20 @@ class Woo_Order_Weight {
 
 		$this->loader->add_filter( 'woocommerce_get_sections_advanced', $plugin_admin, 'woo_add_settings_section', 10, 4 );
 		$this->loader->add_filter( 'woocommerce_get_settings_advanced', $plugin_admin, 'woo_add_settings', 10, 4 );
-		$this->loader->add_filter( 'woocommerce_after_settings_advanced', $plugin_admin, 'woo_add_settings_test', 10, 4 );
 
 		$this->loader->add_filter( 'plugin_action_links_woo-order-weight/woo-order-weight.php', $plugin_admin, 'woo_plugin_settings_link', 10, 4 );
 
 		$this->loader->add_filter( 'bulk_actions-edit-shop_order', $plugin_admin, 'woo_add_custom_bulk_action', 10, 4 );
 		$this->loader->add_filter( 'handle_bulk_actions-edit-shop_order', $plugin_admin, 'woo_process_custom_bulk_action', 10, 4 );
 		$this->loader->add_filter( 'admin_notices', $plugin_admin, 'woo_display_custom_bulk_action_message', 10, 4 );
+
+		$this->loader->add_action( 'woocommerce_after_settings_advanced', $plugin_admin, 'woo_add_tool_settings', 10, 4 );
+		$this->loader->add_action( 'wp_ajax_woo_process_bulk_orders', $plugin_admin, 'woo_process_bulk_orders', 10, 4 );
+		//$this->loader->add_action( 'wp_ajax_nopriv_woo_process_bulk_orders', $plugin_admin, 'woo_process_bulk_orders', 10, 4 );
+
+		$this->loader->add_action( 'admin_enqueue_scripts', $plugin_admin, 'woo_add_admin_assets', 10, 4 );
+
+		$this->loader->add_action( 'woocommerce_after_settings_advanced', $plugin_admin, 'woo_add_plugin_help', 10, 4 );
 
 		$plugin_export = new Woo_Order_Weight_Export( $this->get_plugin_name(), $this->get_version() );
 
