@@ -346,11 +346,31 @@ class Woo_Order_Weight_Admin {
 			$settings_slider = array();
 			$settings_slider[] = array( 'name' => __( 'Settings', 'woocommerce' ), 'type' => 'title', 'desc' => __( 'The following settings are used to configure Order Weight for WooCommerce.', 'woo-order-weight' ), 'id' => 'orderweight' );
 			$settings_slider[] = array(
-				'name'     => __( 'Order Weight in My Account', 'woo-order-weight' ),
+				'name'     => __( 'My account', 'woo-order-weight' ),
 				'id'       => 'orderweight_customer_dashboard',
 				'type'     => 'checkbox',
 				'css'      => 'min-width:300px;',
-				'desc'     => __( 'Display the weight of each order in the customer dashboard.', 'woo-order-weight' ),
+				'desc'     => __( 'Display the weight of each order in the customer dashboard', 'woo-order-weight' ),
+			);
+
+			$settings_slider[] = array(
+				'title'         => __( 'Emails', 'woocommerce' ),
+				'desc'          => __( 'Add order weight to admin emails', 'woo-order-weight' ),
+				'id'            => 'orderweight_enable_admin_emails',
+				'default'       => 'yes',
+				'type'          => 'checkbox',
+				'checkboxgroup' => 'start',
+				'autoload'      => true,
+			);
+
+			$settings_slider[] = array(
+				'title'         => __( 'Customer emails', 'woocommerce' ),
+				'desc'          => __( 'Add order weight to customer emails', 'woo-order-weight' ),
+				'id'            => 'orderweight_enable_customer_emails',
+				'default'       => 'no',
+				'type'          => 'checkbox',
+				'checkboxgroup' => 'end',
+				'autoload'      => false,
 			);
 
 			$settings_slider[] = array( 'type' => 'sectionend', 'id' => 'orderweight');
@@ -597,19 +617,41 @@ class Woo_Order_Weight_Admin {
  }
 
  /**
-	* Add order weight to order emails
-	*
-	* @since    0.8.1
-	*/
+ * Add order weight to customer emails
+ *
+ * @since    1.0
+ */
 
- public function woo_add_order_weight_to_admin_emails( $fields, $sent_to_admin, $order ) {
- 	if( $sent_to_admin ): // For admin emails notification
- 		$fields['meta_key'] = array(
-         'label' => __( 'Total weight of the order', 'woo-order-weight' ),
-         'value' => get_post_meta( $order->get_id(), $this->woo_get_weight_meta_key(), true ) . ' ' . $this->woo_get_woocommerce_weight_unit(),
-     );
-	  return $fields;
- 	endif;
+ public function woo_add_order_weight_to_emails( $fields, $sent_to_admin, $order ) {
+
+	 $orderweight_admin_emails = get_option( 'orderweight_enable_admin_emails' );
+	 $orderweight_customer_emails = get_option( 'orderweight_enable_customer_emails' );
+
+	 if ($orderweight_admin_emails == 'yes' && $orderweight_customer_emails == 'yes') {
+		 $fields['meta_key'] = array(
+				'label' => __( 'Total weight of the order', 'woo-order-weight' ),
+				'value' => get_post_meta( $order->get_id(), $this->woo_get_weight_meta_key(), true ) . ' ' . $this->woo_get_woocommerce_weight_unit(),
+		);
+		return $fields;
+	 }
+	 elseif ($orderweight_admin_emails == 'no' && $orderweight_customer_emails == 'yes'){
+		 if( !$sent_to_admin ):
+			 $fields['meta_key'] = array(
+					 'label' => __( 'Total weight of the order', 'woo-order-weight' ),
+					 'value' => get_post_meta( $order->get_id(), $this->woo_get_weight_meta_key(), true ) . ' ' . $this->woo_get_woocommerce_weight_unit(),
+			 );
+		 		return $fields;
+	 	 endif;
+	 }
+	 elseif ($orderweight_admin_emails == 'yes' && $orderweight_customer_emails == 'no'){
+		 if( $sent_to_admin ):
+			 $fields['meta_key'] = array(
+					 'label' => __( 'Total weight of the order', 'woo-order-weight' ),
+					 'value' => get_post_meta( $order->get_id(), $this->woo_get_weight_meta_key(), true ) . ' ' . $this->woo_get_woocommerce_weight_unit(),
+			 );
+				return $fields;
+		 endif;
+	 }
  }
 
 }
