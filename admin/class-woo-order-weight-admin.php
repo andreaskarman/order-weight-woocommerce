@@ -596,4 +596,20 @@ class Woo_Order_Weight_Admin {
 
  }
 
+ /**
+	* Add order weight to order emails
+	*
+	* @since    0.8.1
+	*/
+
+ public function woo_add_order_weight_to_admin_emails( $fields, $sent_to_admin, $order ) {
+ 	if( $sent_to_admin ): // For admin emails notification
+ 		$fields['meta_key'] = array(
+         'label' => __( 'Total weight of the order', 'woo-order-weight' ),
+         'value' => get_post_meta( $order->get_id(), $this->woo_get_weight_meta_key(), true ) . ' ' . $this->woo_get_woocommerce_weight_unit(),
+     );
+	  return $fields;
+ 	endif;
+ }
+
 }

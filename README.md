@@ -7,7 +7,7 @@
 
 **Tested up to:** 6.1.1
 
-**Stable tag:** 0.8
+**Stable tag:** 0.9
 
 **License:** GPLv2 or later
 
@@ -65,6 +65,12 @@ Bugs can be reported either in the support forum or preferably in the [plugin Gi
 
 
 ## Changelog ##
+
+### 0.9 - 2022/12/05 ###
+* New feature: WP-CLI command added to update all order weights (wp orderweight update)
+
+### 0.8.1 - 2022/12/05 ###
+* New feature: Adding total order weight to admin e-mails
 
 ### 0.8 - 2022/11/24 ###
 * New feature: Admin tool to update the weight on all orders.

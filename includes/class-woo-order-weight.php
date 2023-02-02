@@ -69,7 +69,7 @@ class Woo_Order_Weight {
 	public function __construct() {
 
 		$this->plugin_name = 'woo-order-weight';
-		$this->version     = '0.8';
+		$this->version     = '0.9';
 
 		$this->load_dependencies();
 		$this->set_locale();
@@ -170,6 +170,7 @@ class Woo_Order_Weight {
 		$this->loader->add_action( 'admin_enqueue_scripts', $plugin_admin, 'woo_add_admin_assets', 10, 4 );
 
 		$this->loader->add_action( 'woocommerce_after_settings_advanced', $plugin_admin, 'woo_add_plugin_help', 10, 4 );
+		$this->loader->add_filter( 'woocommerce_email_order_meta_fields', $plugin_admin, 'woo_add_order_weight_to_admin_emails', 10, 3 );
 
 		$plugin_export = new Woo_Order_Weight_Export( $this->get_plugin_name(), $this->get_version() );
 

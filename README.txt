@@ -3,28 +3,30 @@ Contributors: andreaskarman
 Tags: woocommerce, woocommerce order, woocommerce order weight, woocommerce plugin, order, orders, weight, ecommerce, shop
 Requires at least: 5.0
 Tested up to: 6.1.1
-Stable tag: 0.8
+Stable tag: 0.9
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
-This WordPress plugin stores the weight of WooCommerce orders and displays the order weight when managing orders.
+This plugin makes it easy to manage and track the weight of your orders in WooCommerce. It calculates and saves the weight of each order automatically and displays it in the WordPress admin interface.
 
 == Description ==
-This WordPress plugin stores the weight of WooCommerce orders and displays the order weight when managing orders.
+This plugin makes it easy to manage and track the weight of your orders in WooCommerce. It calculates and saves the weight of each order automatically and displays it in the WordPress admin interface.
 
-To make the plugin work as intended, [add weight to your products](https://docs.woothemes.com/document/adding-dimensions-and-weights-to-products-for-shipping/).
+It also provides customers with insight into their orders weights by displaying them in the customer dashboard.
+
+To get started, simply  [add weight to your products](https://docs.woothemes.com/document/adding-dimensions-and-weights-to-products-for-shipping/) and the plugin will do the rest.
 
 = What it does =
-- When a new order is added, the total order weight is populated.
-- When an order is changed, the order weight is updated and a order notification is added.
-- Adding weight as a sortable column for ”Orders” and ”Products” in WordPress admin interface.
-- Extends the REST API with order weight and weight unit as order properties
-- Displays order weight in the customer dashboard
-- Tool to update the weight on all orders
-- When exporting orders with [WooCommerce Customer / Order / Coupon Export](https://woocommerce.com/products/ordercustomer-csv-export/), order weight is included.
+- Automatically calculates and updates total order weight for new and changed orders
+- Allows tracking and comparing of order weights in the WordPress admin interface
+- Enhances the REST API by adding order weight and unit as properties
+- Provides customers with visibility of their order weights in the customer dashboard
+- Allows bulk updates of order weights using a built-in tool or WP-CLI command
+- Includes order weight data in admin emails
+- Automatically includes order weight data when exporting orders using the [WooCommerce Customer / Order / Coupon Export](https://woocommerce.com/products/ordercustomer-csv-export/) plugin
 
 = Credits =
-The concepts of the plugin came from [this blog post](http://www.remicorson.com/store-and-display-woocommerce-order-total-weight/) by Remi Corson.
+The first idea for the plugin was inspired by [this blog post](http://www.remicorson.com/store-and-display-woocommerce-order-total-weight/) written by Remi Corson.
 
 = Author =
 This plugin is developed and maintained by [Andreas Karman](http://andreaskarman.se).
@@ -41,20 +43,20 @@ To do an automatic install of Order Weight for WooCommerce, log in to your WordP
 
 = Manual installation =
 
-To manually install our plugin, you need to first download the plugin and then upload it to your webserver via FTP/SFTP. You can find more [detailed instructions in the WordPress Codex](https://codex.wordpress.org/Managing_Plugins#Manual_Plugin_Installation).
+To manually install our plugin, you need to first download the plugin and then upload it to your web server via FTP/SFTP. You can find more [detailed instructions in the WordPress Codex](https://codex.wordpress.org/Managing_Plugins#Manual_Plugin_Installation).
 
 == Frequently Asked Questions ==
 = Where is the plugin settings? =
 
-In the WooCommerce Settings, go to "Advanced" and click the "Order Weight" tab.
+To access the plugin settings, go to the "Advanced" section of the WooCommerce settings and find the "Order Weight for WooCommerce" tab.
 
-= How can I get the weight for orders created prior to plugin activation? =
+= Orders created prior to plugin activation is   =
 
-In the WooCommerce Order interface, mark the orders and use the "Bulk action" -> "Update order weight". This will populate the order weight based on the content of the order and the current weight of the products.
+ If you need to update the weight of orders created prior to activating the plugin, you can use the bulk update tool (in the plugin settings) or WP-CLI command to update them all at once.
 
-= Where can I report bugs? =
+= How do I report bugs? =
 
-Bugs can be reported either in the support forum or preferably in the [plugin GitHub repository](https://github.com/andreaskarman/order-weight-woocommerce).
+To report bugs, you can use the [support forum](https://wordpress.org/support/plugin/woo-order-weight/) or the [ GitHub repository](https://github.com/andreaskarman/order-weight-woocommerce) for the plugin.
 
 == Screenshots ==
 1. Order weight column when managing orders.
@@ -65,56 +67,50 @@ Bugs can be reported either in the support forum or preferably in the [plugin Gi
 
 == Changelog ==
 
+= 0.9 - 2022/12/05 =
+*  Added WP-CLI command to update all order weights
+
+= 0.8.1 - 2022/12/05 =
+* Added total order weight to admin e-mails
+
 = 0.8 - 2022/11/24 =
-* New feature: Admin tool to update the weight on all orders.
+* Added admin tool to update the weight of all orders
 
 = 0.7 - 2022/11/14 =
-* New feature: Custom bulk action to update order weights.
+* Added custom bulk action to update order weights
 
 = 0.6.4 - 2022/11/09 =
-* Fixed PHP notices when API is called.
-* Fixed additional PHP8 compatibility issues.
+* Fixed PHP notices and additional PHP 8 compatibility issues
 
 = 0.6.2 - 2022/10/19 =
-* Fixed PHP8 compatibility issue.
+* Fixed PHP 8 compatibility issue
 
 = 0.6.1 - 2022/10/03 =
-* Added link to plugin settings in "Plugins".
+* Added link to plugin settings in "Plugins" page
 
 = 0.6 - 2022/09/13 =
-* Added feature to display order weight in the customer dashboard.
+* Added feature to display order weight in the customer dashboard
 
 = 0.5.5 - 2021/12/26 =
-* New feature: Added order weight support for WooCommerce Customer / Order / Coupon Export
+* Added support for order weight in WooCommerce Customer / Order / Coupon Export
 
 = 0.5 - 2021/12/17 =
-* New feature: Compatibility added to the new WooCommerce Block Checkout
-* Bug fix: Fixed sorting error of "Products" by weight
+* Added compatibility with the new WooCommerce Block Checkout and fixed sorting error in "Products" by weight
 
 = 0.4.5 - 2021/11/20 =
-* New feature: Updating order weight in the WordPress admin when an order is updated.
-* New feature: When order weight is updated, a order notifications is added.
-* Bug fix: Display error in "Products" weight column
+*  Added support for updating order weight in the WordPress admin and added order notifications when order weight is updated, fixed display error in "Products" weight column
 
 = 0.4.0 - 2021/11/10 =
-* Fixed "Order properties should not be accessed directly" error
-* Fixed weight and weight unit in API calls not showing
+* Fixed "Order properties should not be accessed directly" error and added weight and weight unit to API calls
 
 = 0.3.5 - 2016/01/26 =
-* Added weight and weight unit to orders in the WooCommerce REST API.
-* Changed meta key for order weight (removed underscore prefix).
-* Added activation function to rename old meta keys.
-* Protected plugin meta keys using is_protected_meta filter.
-* Updated the uninstall method with all meta keys.
+* Added weight and weight unit to orders in the WooCommerce REST API, renamed plugin meta keys, added activation function to rename old meta keys, protected plugin meta keys, and updated the uninstall method with all meta keys
 
 = 0.3.0 - 2016/01/24 =
-* Renamed plugin.
-* Added weight column to "Products".
+* Renamed plugin and added weight column to "Products"
 
 = 0.2.0 - 2015/11/26 =
-* Removed metadata when un-installing plugin.
-* Added WooCommerce headers to readme.txt.
-* Check if WooCommerce is activated before activating plugin.
+* Added WooCommerce headers to readme.txt, checked if WooCommerce is activated before activating plugin, and removed metadata when uninstalling plugin
 
 = 0.1.0 - 2015/11/22 =
 * Initial plugin release.
