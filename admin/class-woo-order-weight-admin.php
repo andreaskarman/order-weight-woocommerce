@@ -113,12 +113,16 @@ class Woo_Order_Weight_Admin {
 
 		if($weight != $existing_weight) {
 			$weight_unit = $this->woo_get_woocommerce_weight_unit();
-			$note = sprintf(
-				__( 'Order weight updated to %s %s.', 'woo-order-weight' ),
-				$weight,
-				$weight_unit
-			);
-			$the_order->add_order_note($note, false, false);
+
+			$check_public_setting = get_option( 'orderweight_enable_order_notes' );
+			if ($check_public_setting == 'yes') {
+				$note = sprintf(
+					__( 'Order weight updated to %s %s.', 'woo-order-weight' ),
+					$weight,
+					$weight_unit
+				);
+				$the_order->add_order_note($note, false, false);
+			}
 			update_post_meta( $post_id, $this->woo_get_weight_meta_key(), $weight );
 		}
 
@@ -372,6 +376,18 @@ class Woo_Order_Weight_Admin {
 				'checkboxgroup' => 'end',
 				'autoload'      => false,
 			);
+
+			$settings_slider[] = array(
+				'title'         => __( 'Order notes', 'woocommerce' ),
+				'desc'          => __( 'Enable order notes when a order weight is changed', 'woo-order-weight' ),
+				'id'            => 'orderweight_enable_order_notes',
+				'default'       => 'yes',
+				'type'          => 'checkbox',
+				'checkboxgroup' => 'start',
+				'autoload'      => true,
+			);
+
+
 
 			$settings_slider[] = array( 'type' => 'sectionend', 'id' => 'orderweight');
 

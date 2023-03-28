@@ -16,7 +16,7 @@
  * Plugin Name:       Order Weight for WooCommerce
  * Plugin URI:        https://wordpress.org/plugins/woo-order-weight/
  * Description:       This plugin makes it easy to manage and track the weight of your orders in WooCommerce. It calculates and saves the weight of each order automatically and displays it in the WordPress admin interface.
- * Version:           1.0
+ * Version:           1.1
  * Author:            Andreas Karman
  * Author URI:        http://andreaskarman.se
  * License:           GPL-2.0+
