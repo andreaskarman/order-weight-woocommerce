@@ -3,7 +3,7 @@ Contributors: andreaskarman
 Tags: woocommerce, woocommerce order, woocommerce order weight, woocommerce plugin, order, orders, weight, ecommerce, shop
 Requires at least: 5.0
 Tested up to: 6.1.1
-Stable tag: 1.1
+Stable tag: 1.2
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -14,15 +14,15 @@ This WordPress plugin stores the weight of WooCommerce orders and displays the o
 
 To make the plugin work as intended, [add weight to your products](https://docs.woothemes.com/document/adding-dimensions-and-weights-to-products-for-shipping/).
 
-= What it does =
-- When a new order is added, the total order weight is populated.
-- When an order is changed, the order weight is updated and a order notification is added.
-- Adding weight as a sortable column for ”Orders” and ”Products” in WordPress admin interface.
-- Extends the REST API with order weight and weight unit as order properties
-- Displays order weight in the customer dashboard
-- Tool to update the weight on all orders (including a WP-CLI command)
-- Adds total order weight to admin e-mails
-- When exporting orders with [WooCommerce Customer / Order / Coupon Export](https://woocommerce.com/products/ordercustomer-csv-export/), order weight is included.
+= Features =
+- Automatically calculates and saves total order weight
+- Updates order weight when an order is updated
+- Adds weight as a sortable column in admin interfaces
+- Extends WooCommerce REST API with weight properties
+- Displays order weight in customer dashboard and admin e-mails
+- Includes tool to update weight on all orders at once (with WP-CLI support)
+- Supports order weight export with [WooCommerce Customer / Order / Coupon Export](https://woocommerce.com/products/ordercustomer-csv-export/)
+- Track average order weight in and single order weights in WooCommerce Analytics
 
 = Credits =
 The concepts of the plugin came from [this blog post](http://www.remicorson.com/store-and-display-woocommerce-order-total-weight/) by Remi Corson.
@@ -62,11 +62,15 @@ Bugs can be reported either in the support forum or preferably in the [plugin Gi
 2. Order weight when managing a single order.
 3. Order weight in the customer dashboard.
 4. Bulk action to update order weight.
-5. Plugin settings
+5. Plugin setting
+6. WooCommerce Analytics
 
 == Changelog ==
 
-= 1.0 - 2023/03/14 =
+= 1.2 - 2023/03/29 =
+* Added order weight data to WooCommerce Analytics
+
+= 1.1 - 2023/03/14 =
 * Added possibility to disable order notes.
 
 = 1.0 - 2023/01/31 =
