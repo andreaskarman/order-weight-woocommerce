@@ -101,6 +101,7 @@ class Woo_Order_Weight {
 		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'includes/class-woo-order-weight-i18n.php';
 		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'admin/class-woo-order-weight-admin.php';
 		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'admin/class-woo-order-weight-export.php';
+		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'admin/class-woo-order-weight-analytics.php';
 		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'public/class-woo-order-weight-public.php';
 		$this->loader = new Woo_Order_Weight_Loader();
 
@@ -178,6 +179,18 @@ class Woo_Order_Weight {
 		$this->loader->add_filter( 'wc_customer_order_export_csv_order_row', $plugin_export, 'wc_csv_export_add_weight_column_data', 10, 4 );
 		$this->loader->add_filter( 'wc_customer_order_export_xml_order_data', $plugin_export, 'wc_xml_order_export_weight', 10, 4 );
 
+		$plugin_analytics = new Woo_Order_Weight_Analytics( $this->get_plugin_name(), $this->get_version() );
+
+		$this->loader->add_action( 'admin_enqueue_scripts', $plugin_analytics, 'woo_order_weight_add_analytics_scripts', 10, 4 );
+		$this->loader->add_filter( 'woocommerce_analytics_clauses_join_orders_subquery', $plugin_analytics, 'woo_order_weight_join_orders', 10, 4 );
+		$this->loader->add_filter( 'woocommerce_analytics_clauses_join_orders_stats_total', $plugin_analytics, 'woo_order_weight_join_orders', 10, 4 );
+		$this->loader->add_filter( 'woocommerce_analytics_clauses_join_orders_stats_interval', $plugin_analytics, 'woo_order_weight_join_orders', 10, 4 );
+		$this->loader->add_filter( 'woocommerce_analytics_clauses_select_orders_subquery', $plugin_analytics, 'woo_order_weight_select_orders_subquery', 10, 4 );
+		$this->loader->add_filter( 'woocommerce_analytics_clauses_select_orders_stats_total', $plugin_analytics, 'woo_order_weight_select_orders_stats_total', 10, 4 );
+		$this->loader->add_filter( 'woocommerce_analytics_clauses_select_orders_stats_interval', $plugin_analytics, 'woo_order_weight_select_orders_stats_total', 10, 4 );
+		$this->loader->add_filter( 'woocommerce_rest_reports_column_types', $plugin_analytics, 'woo_order_weight_reports_column_types', 10, 4 );
+		$this->loader->add_filter( 'woocommerce_export_admin_orders_report_row_data', $plugin_analytics, 'woo_order_weight_row_data_to_export',  PHP_INT_MAX, 2 );
+		$this->loader->add_filter( 'woocommerce_admin_orders_report_export_column_names', $plugin_analytics, 'woo_order_weight_columns_names_to_export', PHP_INT_MAX, 2 );
 	}
 
 	/**
